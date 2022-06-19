@@ -1,0 +1,45 @@
+{
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": ["airbnb", "airbnb-typescript"],
+  "rules": {
+    "no-console": "off",
+    "indent": ["error", 2, {
+      "SwitchCase": 1,
+      "VariableDeclarator": 1,
+      "outerIIFEBody": 1,
+      // MemberExpression: null,
+      "FunctionDeclaration": {
+        "parameters": 1,
+        "body": 1
+      },
+      "FunctionExpression": {
+        "parameters": 1,
+        "body": 1
+      },
+      "CallExpression": {
+        "arguments": 1
+      },
+      "ArrayExpression": 1,
+      "ObjectExpression": 1,
+      "ImportDeclaration": 1,
+      "flatTernaryExpressions": false,
+      // list derived from https://github.com/benjamn/ast-types/blob/HEAD/def/jsx.js
+      "ignoredNodes": ["JSXElement", "JSXElement > *", "JSXAttribute", "JSXIdentifier", "JSXNamespacedName", "JSXMemberExpression", "JSXSpreadAttribute", "JSXExpressionContainer", "JSXOpeningElement", "JSXClosingElement", "JSXText", "JSXEmptyExpression", "JSXSpreadChild"],
+      "ignoreComments": false
+    }],
+    "import/prefer-default-export": "off",
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ]
+  }
+}

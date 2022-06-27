@@ -48,7 +48,7 @@ export const AddProductForm = () => {
   });
 
   return (
-    <Flex bg="gray.100" align="center" justify="center" h="100vh">
+    <Flex bg="gray.100" align="center" justify="center" h="92vh">
       <Box bg="white" p={6} rounded="md">
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <VStack spacing={4} align="flex-start">
@@ -72,7 +72,7 @@ export const AddProductForm = () => {
                 id="description"
                 value={formik.values.description}
                 onChange={formik.handleChange}
-                placeholder="Here is a sample placeholder"
+                placeholder="Describe the new product"
                 size="sm"
               />
             </FormControl>

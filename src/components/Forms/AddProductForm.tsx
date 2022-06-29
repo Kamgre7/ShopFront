@@ -18,16 +18,16 @@ export const AddProductForm = () => {
     initialValues: {
       name: '',
       description: '',
-      quantity: 0,
-      price: 0,
+      quantity: 1,
+      price: 1,
       sku: '',
-      category: '',
+      categoryId: '',
       photo: '',
+      photoFileName: '',
     },
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
-
         // eslint-disable-next-line no-restricted-syntax
         for (const [key, value] of Object.entries(values)) {
           if (key !== 'photo') {
@@ -36,8 +36,7 @@ export const AddProductForm = () => {
             formData.append('photo', values.photo);
           }
         }
-
-        await fetch('http://localhost:3001/', {
+        await fetch('http://localhost:3001/product/form', {
           method: 'POST',
           body: formData,
         });
@@ -78,7 +77,7 @@ export const AddProductForm = () => {
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="quantity">Quantity</FormLabel>
-              <NumberInput max={1000} min={1} defaultValue={1}>
+              <NumberInput max={10000} min={1} defaultValue={1}>
                 <NumberInputField
                   id="quantity"
                   name="quantity"
@@ -93,7 +92,7 @@ export const AddProductForm = () => {
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="price">Price</FormLabel>
-              <NumberInput max={10000} min={0.1} defaultValue={1} precision={2}>
+              <NumberInput max={1000000} min={0.1} defaultValue={1} precision={2}>
                 <NumberInputField
                   id="price"
                   name="price"
@@ -121,12 +120,12 @@ export const AddProductForm = () => {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="category">Category</FormLabel>
+              <FormLabel htmlFor="categoryId">Category</FormLabel>
               <Select
-                id="category"
-                name="category"
+                id="categoryId"
+                name="categoryId"
                 placeholder="Select category"
-                value={formik.values.category}
+                value={formik.values.categoryId}
                 onChange={formik.handleChange}
               >
                 <option>Jewellery</option>
@@ -144,6 +143,7 @@ export const AddProductForm = () => {
                 onChange={(e) => {
                   // @ts-ignore: Object is possibly 'null'.
                   formik.setFieldValue('photo', e.currentTarget.files[0]);
+                  formik.setFieldValue('photoFileName', e.target.value);
                 }}
                 bg="white"
                 border="2px"

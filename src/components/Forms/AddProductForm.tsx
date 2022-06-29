@@ -22,18 +22,18 @@ export const AddProductForm = () => {
       price: 1,
       sku: '',
       categoryId: '',
-      photo: '',
-      photoFileName: '',
+      img: '',
+      imgFileName: '',
     },
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
         // eslint-disable-next-line no-restricted-syntax
         for (const [key, value] of Object.entries(values)) {
-          if (key !== 'photo') {
+          if (key !== 'img') {
             formData.append(key, String(value));
           } else {
-            formData.append('photo', values.photo);
+            formData.append('img', values.img);
           }
         }
         await fetch('http://localhost:3001/product/form', {
@@ -134,16 +134,16 @@ export const AddProductForm = () => {
               </Select>
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="photo">Image</FormLabel>
+              <FormLabel htmlFor="img">Image</FormLabel>
               <Input
-                id="photo"
-                name="photo"
+                id="img"
+                name="img"
                 type="file"
                 variant="filled"
                 onChange={(e) => {
                   // @ts-ignore: Object is possibly 'null'.
-                  formik.setFieldValue('photo', e.currentTarget.files[0]);
-                  formik.setFieldValue('photoFileName', e.target.value);
+                  formik.setFieldValue('img', e.currentTarget.files[0]);
+                  formik.setFieldValue('imgFileName', e.target.value);
                 }}
                 bg="white"
                 border="2px"

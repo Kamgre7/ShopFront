@@ -1,7 +1,8 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import {
-  Box, Button,
+  Box,
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -15,25 +16,26 @@ export const AddCategoryForm = () => {
     initialValues: {
       name: '',
       description: '',
-      photo: '',
+      img: '',
     },
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
-
         // eslint-disable-next-line no-restricted-syntax
         for (const [key, value] of Object.entries(values)) {
-          if (key !== 'photo') {
+          if (key !== 'img') {
             formData.append(key, String(value));
           } else {
-            formData.append('photo', values.photo);
+            formData.append('img', values.img);
           }
         }
-
-        await fetch('http://localhost:3001/categories/', {
+        const res = await fetch('http://localhost:3001/category/form', {
           method: 'POST',
           body: formData,
         });
+
+        const data = await res.json();
+        console.log('data', data);
       } catch (err) {
         console.error(err);
       }
@@ -65,21 +67,20 @@ export const AddCategoryForm = () => {
                 id="description"
                 value={formik.values.description}
                 onChange={formik.handleChange}
-                placeholder="Describe the new category"
+                placeholder="Describe the new product"
                 size="sm"
               />
             </FormControl>
-
             <FormControl>
-              <FormLabel htmlFor="photo">Image</FormLabel>
+              <FormLabel htmlFor="img">Image</FormLabel>
               <Input
-                id="photo"
-                name="photo"
+                id="img"
+                name="img"
                 type="file"
                 variant="filled"
                 onChange={(e) => {
                   // @ts-ignore: Object is possibly 'null'.
-                  formik.setFieldValue('photo', e.currentTarget.files[0]);
+                  formik.setFieldValue('img', e.currentTarget.files[0]);
                 }}
                 bg="white"
                 border="2px"

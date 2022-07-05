@@ -8,6 +8,7 @@
   "parser": "@typescript-eslint/parser",
   "extends": ["airbnb", "airbnb-typescript"],
   "rules": {
+    "max-len": "off",
     "no-console": "off",
     "indent": ["error", 2, {
       "SwitchCase": 1,

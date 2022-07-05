@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 export const NavigationBar = () => (
   <Breadcrumb>
     <BreadcrumbItem>
-      <BreadcrumbLink as={Link} to="/products">
+      <BreadcrumbLink as={Link} to="/product">
         Products
       </BreadcrumbLink>
     </BreadcrumbItem>
     <BreadcrumbItem>
-      <BreadcrumbLink as={Link} to="/categories">
+      <BreadcrumbLink as={Link} to="/category">
         Categories
       </BreadcrumbLink>
     </BreadcrumbItem>

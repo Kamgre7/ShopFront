@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   ChakraProvider,
 } from '@chakra-ui/react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { CategoryEntity, ProductEntity } from 'types';
 import { useState } from 'react';
 import { AddProductForm } from './components/Forms/AddProductForm';
@@ -59,7 +59,12 @@ export const App = () => {
           <Route path="/basket" element={<BasketView />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
-          <Route path="/" element={<ProductView />} />
+          <Route
+            path="/"
+            element={
+              <Navigate replace to="/product" />
+          }
+          />
           <Route path="/*" element={<NotFoundView />} />
         </Routes>
       </ShopContext.Provider>

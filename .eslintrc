@@ -9,6 +9,7 @@
   "extends": ["airbnb", "airbnb-typescript"],
   "rules": {
     "max-len": "off",
+    "no-restricted-syntax": "off",
     "no-console": "off",
     "indent": ["error", 2, {
       "SwitchCase": 1,

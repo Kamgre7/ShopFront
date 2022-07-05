@@ -21,7 +21,7 @@ export const AddCategoryForm = () => {
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
-        // eslint-disable-next-line no-restricted-syntax
+
         for (const [key, value] of Object.entries(values)) {
           if (key !== 'img') {
             formData.append(key, String(value));
@@ -29,6 +29,7 @@ export const AddCategoryForm = () => {
             formData.append('img', values.img);
           }
         }
+
         const res = await fetch('http://localhost:3001/category/form', {
           method: 'POST',
           body: formData,

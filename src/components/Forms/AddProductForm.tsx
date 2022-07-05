@@ -23,12 +23,11 @@ export const AddProductForm = () => {
       sku: '',
       categoryId: '',
       img: '',
-      imgFileName: '',
     },
     onSubmit: async (values) => {
       try {
         const formData = new FormData();
-        // eslint-disable-next-line no-restricted-syntax
+
         for (const [key, value] of Object.entries(values)) {
           if (key !== 'img') {
             formData.append(key, String(value));
@@ -36,10 +35,14 @@ export const AddProductForm = () => {
             formData.append('img', values.img);
           }
         }
-        await fetch('http://localhost:3001/product/form', {
+
+        const res = await fetch('http://localhost:3001/product/form', {
           method: 'POST',
           body: formData,
         });
+
+        const data = await res.json();
+        console.log('data', data);
       } catch (err) {
         console.error(err);
       }
@@ -143,7 +146,6 @@ export const AddProductForm = () => {
                 onChange={(e) => {
                   // @ts-ignore: Object is possibly 'null'.
                   formik.setFieldValue('img', e.currentTarget.files[0]);
-                  formik.setFieldValue('imgFileName', e.target.value);
                 }}
                 bg="white"
                 border="2px"

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Box,
@@ -12,8 +12,30 @@ import {
   NumberInput, NumberInputField, NumberInputStepper, Select, Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { CategoryEntity } from 'types';
+import { ShopContext } from '../../contexts/shop.context';
+import { LoadingSpinner } from '../LoadingSpinner';
 
 export const AddProductForm = () => {
+  const [priceValue, setPriceValue] = useState<string>('0');
+  const [quantityValue, setQuantityValue] = useState<string>('0');
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { categories, loadCategories } = context;
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:3001/category');
+      const data:CategoryEntity[] = await res.json();
+
+      loadCategories(data);
+    })();
+  }, []);
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -26,6 +48,9 @@ export const AddProductForm = () => {
     },
     onSubmit: async (values) => {
       try {
+        formik.values.price = parseFloat(priceValue);
+        formik.values.quantity = parseInt(quantityValue, 10);
+
         const formData = new FormData();
 
         for (const [key, value] of Object.entries(values)) {
@@ -35,7 +60,6 @@ export const AddProductForm = () => {
             formData.append('img', values.img);
           }
         }
-
         const res = await fetch('http://localhost:3001/product/form', {
           method: 'POST',
           body: formData,
@@ -48,6 +72,10 @@ export const AddProductForm = () => {
       }
     },
   });
+
+  if (categories.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <Flex bg="gray.100" align="center" justify="center" h="92vh">
@@ -76,11 +104,19 @@ export const AddProductForm = () => {
                 onChange={formik.handleChange}
                 placeholder="Describe the new product"
                 size="sm"
+                bg="white"
+                variant="filled"
+                borderColor="gray.100"
               />
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="quantity">Quantity</FormLabel>
-              <NumberInput max={10000} min={1} defaultValue={1}>
+              <NumberInput
+                max={10000}
+                min={1}
+                defaultValue={1}
+                onChange={(value) => setQuantityValue(value)}
+              >
                 <NumberInputField
                   id="quantity"
                   name="quantity"
@@ -95,7 +131,13 @@ export const AddProductForm = () => {
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="price">Price</FormLabel>
-              <NumberInput max={1000000} min={0.1} defaultValue={1} precision={2}>
+              <NumberInput
+                max={1000000}
+                min={0.1}
+                defaultValue={1}
+                precision={2}
+                onChange={(value) => setPriceValue(value)}
+              >
                 <NumberInputField
                   id="price"
                   name="price"
@@ -131,9 +173,9 @@ export const AddProductForm = () => {
                 value={formik.values.categoryId}
                 onChange={formik.handleChange}
               >
-                <option>Jewellery</option>
-                <option>Car</option>
-                <option>Dupa</option>
+                {
+                  categories.map((singleCategory) => <option key={singleCategory.id} value={singleCategory.id}>{singleCategory.name}</option>)
+                }
               </Select>
             </FormControl>
             <FormControl>

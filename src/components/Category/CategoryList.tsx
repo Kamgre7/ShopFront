@@ -7,6 +7,7 @@ import { ShopContext } from '../../contexts/shop.context';
 
 export const CategoryList = () => {
   const context = useContext(ShopContext);
+
   if (!context) {
     return null;
   }
@@ -25,23 +26,6 @@ export const CategoryList = () => {
   if (categories.length === 0) {
     return <LoadingSpinner />;
   }
-
-  /*  const [category, setCategory] = useState<CategoryEntity[] | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch('http://localhost:3001/category');
-      const data:CategoryEntity[] = await res.json();
-
-      setCategory(data);
-    })();
-  }, []);
-
-  if (category === null) {
-    return (
-      <LoadingSpinner />
-    );
-  } */
 
   return (
     <Center>

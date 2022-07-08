@@ -16,6 +16,7 @@ import { BasketView } from './views/BasketView';
 import { RegisterForm } from './components/Forms/RegisterForm';
 import { LoginForm } from './components/Forms/LoginForm';
 import { ShopContext } from './contexts/shop.context';
+import { SingleProductDetails } from './components/Product/SingleProductDetails';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryEntity[]>([]);
@@ -52,6 +53,7 @@ export const App = () => {
         <Header />
         <Routes>
           <Route path="/product" element={<ProductView />} />
+          <Route path="/product/:id" element={<SingleProductDetails />} />
           <Route path="/product/form" element={<AddProductForm />} />
           <Route path="/category/" element={<CategoryView />} />
           <Route path="/category/form" element={<AddCategoryForm />} />

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { ProductEntity } from 'types';
-import { Center, Flex } from '@chakra-ui/react';
+import { Flex, Grid } from '@chakra-ui/react';
 import { ShopContext } from '../../contexts/shop.context';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { SingleProduct } from './SingleProduct';
@@ -28,12 +28,22 @@ export const ProductList = () => {
   }
 
   return (
-    <Center>
-      <Flex border="2px solid black" direction="column" width="50vw" justify="space-evenly" align="center">
-        {
-            products.map((singleProduct) => <SingleProduct key={singleProduct.id} product={singleProduct} />)
-          }
-      </Flex>
-    </Center>
+    <Flex
+      direction="column"
+      justifyContent="center"
+      maxW={{ xl: '1200px' }}
+      m="0 auto"
+      minH="100vh"
+    >
+      <Grid
+        w="full"
+        gridGap="5"
+        gridTemplateColumns="repeat( auto-fit, minmax(300px, 1fr) )"
+      >
+        {products.map((singleProduct) => (
+          <SingleProduct key={singleProduct.id} product={singleProduct} />
+        ))}
+      </Grid>
+    </Flex>
   );
 };

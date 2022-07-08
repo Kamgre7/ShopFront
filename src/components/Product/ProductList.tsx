@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import { ProductEntity } from 'types';
+import React, { useContext } from 'react';
 import { Flex, Grid } from '@chakra-ui/react';
 import { ShopContext } from '../../contexts/shop.context';
 import { LoadingSpinner } from '../LoadingSpinner';
@@ -12,16 +11,7 @@ export const ProductList = () => {
     return null;
   }
 
-  const { products, loadProducts } = context;
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch('http://localhost:3001/product');
-      const data:ProductEntity[] = await res.json();
-
-      loadProducts(data);
-    })();
-  }, []);
+  const { products } = context;
 
   if (products.length === 0) {
     return <LoadingSpinner />;

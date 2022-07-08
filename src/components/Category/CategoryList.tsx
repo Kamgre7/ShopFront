@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-import { CategoryEntity } from 'types';
+import React, { useContext } from 'react';
 import { Center, Flex } from '@chakra-ui/react';
 import { SingleCategory } from './SingleCategory';
 import { LoadingSpinner } from '../LoadingSpinner';
@@ -12,16 +11,7 @@ export const CategoryList = () => {
     return null;
   }
 
-  const { categories, loadCategories } = context;
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch('http://localhost:3001/category');
-      const data:CategoryEntity[] = await res.json();
-
-      loadCategories(data);
-    })();
-  }, []);
+  const { categories } = context;
 
   if (categories.length === 0) {
     return <LoadingSpinner />;

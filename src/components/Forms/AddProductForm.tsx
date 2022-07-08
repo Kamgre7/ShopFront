@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useFormik } from 'formik';
 import {
   Box,
@@ -12,7 +12,6 @@ import {
   NumberInput, NumberInputField, NumberInputStepper, Select, Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { CategoryEntity } from 'types';
 import { ShopContext } from '../../contexts/shop.context';
 import { LoadingSpinner } from '../LoadingSpinner';
 
@@ -25,16 +24,7 @@ export const AddProductForm = () => {
     return null;
   }
 
-  const { categories, loadCategories } = context;
-
-  useEffect(() => {
-    (async () => {
-      const res = await fetch('http://localhost:3001/category');
-      const data:CategoryEntity[] = await res.json();
-
-      loadCategories(data);
-    })();
-  }, []);
+  const { categories } = context;
 
   const formik = useFormik({
     initialValues: {

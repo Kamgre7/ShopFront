@@ -10,7 +10,7 @@ export const SingleCategory = ({ category }: Props) => {
   const { name, img, description } = category;
   const imgLink = `http://localhost:3001/${img}`;
   return (
-    <Flex border="2px solid black" width="400px" mt="20px" mb="20px" minHeight="200px">
+    <Flex border="2px solid black" width="400px" mt="20px" mb="20px" minHeight="200px" direction="column">
       <Box width="100%">
         <Image
           boxSize="100%"

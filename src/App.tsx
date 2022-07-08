@@ -4,7 +4,7 @@ import {
 } from '@chakra-ui/react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { CategoryEntity, ProductEntity } from 'types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddProductForm } from './components/Forms/AddProductForm';
 import { Header } from './components/Header/Header';
 import { ProductView } from './views/ProductView';
@@ -17,6 +17,7 @@ import { RegisterForm } from './components/Forms/RegisterForm';
 import { LoginForm } from './components/Forms/LoginForm';
 import { ShopContext } from './contexts/shop.context';
 import { SingleProductDetails } from './components/Product/SingleProductDetails';
+import { LoadingSpinner } from './components/LoadingSpinner';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryEntity[]>([]);
@@ -37,6 +38,28 @@ export const App = () => {
   const addProducts = (product: ProductEntity) => {
     setProducts((prev) => [...prev, product]);
   };
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:3001/product');
+      const data:ProductEntity[] = await res.json();
+
+      loadProducts(data);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('http://localhost:3001/category');
+      const data:CategoryEntity[] = await res.json();
+
+      loadCategories(data);
+    })();
+  }, []);
+
+  if (products.length === 0 || categories.length === 0) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <ChakraProvider>

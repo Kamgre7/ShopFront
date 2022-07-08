@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Flex, Grid } from '@chakra-ui/react';
 import { ShopContext } from '../../contexts/shop.context';
-import { LoadingSpinner } from '../LoadingSpinner';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 import { SingleProduct } from './SingleProduct';
 
 export const ProductList = () => {

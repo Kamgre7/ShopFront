@@ -17,7 +17,7 @@ import { RegisterForm } from './components/Forms/RegisterForm';
 import { LoginForm } from './components/Forms/LoginForm';
 import { ShopContext } from './contexts/shop.context';
 import { SingleProductDetails } from './components/Product/SingleProductDetails';
-import { LoadingSpinner } from './components/LoadingSpinner';
+import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryEntity[]>([]);

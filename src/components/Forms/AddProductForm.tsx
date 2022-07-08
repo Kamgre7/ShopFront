@@ -13,7 +13,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { ShopContext } from '../../contexts/shop.context';
-import { LoadingSpinner } from '../LoadingSpinner';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
 export const AddProductForm = () => {
   const [priceValue, setPriceValue] = useState<string>('0');

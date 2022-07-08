@@ -5,7 +5,7 @@ import {
 import { CategoryEntity, ProductEntity } from 'types';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../../contexts/shop.context';
-import { LoadingSpinner } from '../LoadingSpinner';
+import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
 interface Props {
   product: ProductEntity
@@ -25,11 +25,11 @@ export const SingleProduct = ({ product }: Props) => {
   }
 
   const {
-    name, img, description, quantity, price, categoryId, sku, id,
+    name, img, price, categoryId, id,
   } = product;
-  const categoryName = categories.find((category) => category.id === categoryId) as CategoryEntity;
-  console.log(description, quantity, sku);
-  console.log(categoryName.name);
+
+  const findCategoryName = categories.find((category) => category.id === categoryId) as CategoryEntity;
+  const categoryName = findCategoryName.name;
 
   const imgLink = `http://localhost:3001/${img}`;
 
@@ -38,7 +38,7 @@ export const SingleProduct = ({ product }: Props) => {
       <Stack p={{ base: '0 2rem' }}>
         <Image objectFit="cover" src={imgLink} alt={name} maxW="300px" minW="250px" />
         <Text color="teal.600" textTransform="uppercase">
-          {categoryName.name}
+          {categoryName}
         </Text>
 
         <Heading color="teal.300" size="md" textTransform="capitalize">

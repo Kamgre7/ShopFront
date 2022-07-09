@@ -34,13 +34,12 @@ export const SingleProduct = ({ product }: Props) => {
   const imgLink = `http://localhost:3001/${img}`;
 
   return (
-    <Link to={`/product/${id}`}>
-      <Stack p={{ base: '0 2rem' }}>
+    <Stack p={{ base: '0 2rem' }}>
+      <Link to={`/product/${id}`}>
         <Image objectFit="cover" src={imgLink} alt={name} maxW="300px" minW="250px" />
         <Text color="teal.600" textTransform="uppercase">
           {categoryName}
         </Text>
-
         <Heading color="teal.300" size="md" textTransform="capitalize">
           {name}
         </Heading>
@@ -51,7 +50,7 @@ export const SingleProduct = ({ product }: Props) => {
             / unit
           </Box>
         </Box>
-      </Stack>
-    </Link>
+      </Link>
+    </Stack>
   );
 };

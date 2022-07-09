@@ -1,6 +1,8 @@
 import React from 'react';
 import { CategoryEntity } from 'types';
-import { Box, Flex, Image } from '@chakra-ui/react';
+import {
+  Box, Center, Text, Image, Stack, useColorModeValue,
+} from '@chakra-ui/react';
 
 interface Props {
   category: CategoryEntity
@@ -9,23 +11,51 @@ interface Props {
 export const SingleCategory = ({ category }: Props) => {
   const { name, img, description } = category;
   const imgLink = `http://localhost:3001/${img}`;
+
   return (
-    <Flex border="2px solid black" width="400px" mt="20px" mb="20px" minHeight="200px" direction="column">
-      <Box width="100%">
-        <Image
-          boxSize="100%"
-          src={imgLink}
-          objectFit="cover"
-          alt={img}
-        />
+    <Center py={6}>
+      <Box
+        maxW="445px"
+        height="600px"
+        w="full"
+        bg={useColorModeValue('white', 'gray.900')}
+        boxShadow="2xl"
+        rounded="md"
+        p={6}
+        overflow="auto"
+      >
+        <Box
+          h="210px"
+          bg="gray.100"
+          mt={-6}
+          mx={-6}
+          mb={6}
+          pos="relative"
+        >
+          <Image
+            src={imgLink}
+            alt={name}
+            fit="cover"
+            align="center"
+            w="100%"
+            h={{ base: '100%', sm: '210px', lg: '210px' }}
+          />
+        </Box>
+        <Stack>
+          <Text
+            color="green.500"
+            textTransform="uppercase"
+            fontWeight={800}
+            fontSize="sm"
+            letterSpacing={1.1}
+          >
+            {name}
+          </Text>
+          <Text color="gray.500">
+            {description}
+          </Text>
+        </Stack>
       </Box>
-      <Box>
-        <h1>
-          <strong>{name}</strong>
-          <br />
-          <p>{description}</p>
-        </h1>
-      </Box>
-    </Flex>
+    </Center>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import {
   Box,
@@ -10,8 +10,17 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { ShopContext } from '../../contexts/shop.context';
 
 export const AddCategoryForm = () => {
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { addCategories } = context;
+
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -36,7 +45,7 @@ export const AddCategoryForm = () => {
         });
 
         const data = await res.json();
-        console.log('data', data);
+        addCategories(data);
       } catch (err) {
         console.error(err);
       }

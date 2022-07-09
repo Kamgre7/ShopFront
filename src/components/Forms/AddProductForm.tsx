@@ -12,6 +12,7 @@ import {
   NumberInput, NumberInputField, NumberInputStepper, Select, Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { ProductEntity } from 'types';
 import { ShopContext } from '../../contexts/shop.context';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
 
@@ -24,7 +25,7 @@ export const AddProductForm = () => {
     return null;
   }
 
-  const { categories } = context;
+  const { categories, addProducts } = context;
 
   const formik = useFormik({
     initialValues: {
@@ -50,13 +51,14 @@ export const AddProductForm = () => {
             formData.append('img', values.img);
           }
         }
+
         const res = await fetch('http://localhost:3001/product/form', {
           method: 'POST',
           body: formData,
         });
 
-        const data = await res.json();
-        console.log('data', data);
+        const data: ProductEntity = await res.json();
+        addProducts(data);
       } catch (err) {
         console.error(err);
       }

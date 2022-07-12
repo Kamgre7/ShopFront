@@ -1,20 +1,29 @@
-import React, { /* useContext, */ useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ProductEntity } from 'types';
 import {
   Box, Button, Container, Flex, Heading, Image, SimpleGrid, Stack, StackDivider, Text, useColorModeValue, VStack,
 } from '@chakra-ui/react';
 import { MdLocalShipping } from 'react-icons/all';
+import { ProductEntity, CartEntityProperty } from 'types';
 import { LoadingSpinner } from '../LoadingSpinner/LoadingSpinner';
+import { ShopContext } from '../../contexts/shop.context';
 
 export const SingleProductDetails = () => {
   const [product, setProduct] = useState<ProductEntity | null>(null);
-  const { id } = useParams();
+  const { id: idRoute } = useParams();
+
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { cart, loadCart } = context;
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`http://localhost:3001/product/${id}`);
+        const res = await fetch(`http://localhost:3001/product/${idRoute}`);
         const data: ProductEntity = await res.json();
 
         setProduct(data);
@@ -29,10 +38,30 @@ export const SingleProductDetails = () => {
   }
 
   const {
-    name, img, price, quantity, sku, description,
+    name, img, price, quantity, sku, description, id,
   } = product;
 
   const imgLink = `http://localhost:3001/${img}`;
+
+  const addToCart = async (e:React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+
+    const cartItems:CartEntityProperty[] = [...cart];
+    const findExistingItem = cartItems.findIndex((item) => item.productId === id);
+    if (findExistingItem !== -1) {
+      cartItems[findExistingItem].userQuantity += 1;
+    } else {
+      cartItems.push(
+        {
+          productId: id as string,
+          userQuantity: 1,
+        },
+      );
+    }
+
+    localStorage.setItem('shopCart', JSON.stringify(cartItems));
+    loadCart(cartItems);
+  };
 
   return (
     <Container maxW="7xl">
@@ -127,6 +156,7 @@ export const SingleProductDetails = () => {
               transform: 'translateY(2px)',
               boxShadow: 'lg',
             }}
+            onClick={addToCart}
           >
             Add to cart
           </Button>
@@ -138,4 +168,25 @@ export const SingleProductDetails = () => {
       </SimpleGrid>
     </Container>
   );
-};
+  /*
+     <div>
+      <div>
+        {id}
+        <br />
+        {name}
+        <br />
+        {imgLink}
+        <br />
+        {price}
+        <br />
+        {quantity}
+        <br />
+        {sku}
+        <br />
+        {description}
+      </div>
+      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label,react/button-has-type */ };
+/*
+<button onClick={addToCart}>Add</button>
+</div>
+*/

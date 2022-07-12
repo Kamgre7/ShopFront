@@ -3,7 +3,7 @@ import {
   ChakraProvider,
 } from '@chakra-ui/react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { CategoryEntity, ProductEntity } from 'types';
+import { CartEntityProperty, CategoryEntity, ProductEntity } from 'types';
 import { useEffect, useState } from 'react';
 import { AddProductForm } from './components/Forms/AddProductForm';
 import { Header } from './components/Header/Header';
@@ -12,7 +12,7 @@ import { RankingView } from './views/RankingView';
 import { NotFoundView } from './views/NotFoundView';
 import { CategoryView } from './views/CategoryView';
 import { AddCategoryForm } from './components/Forms/AddCategoryForm';
-import { BasketView } from './views/BasketView';
+import { CartView } from './views/CartView';
 import { RegisterForm } from './components/Forms/RegisterForm';
 import { LoginForm } from './components/Forms/LoginForm';
 import { ShopContext } from './contexts/shop.context';
@@ -22,6 +22,7 @@ import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
 export const App = () => {
   const [categories, setCategories] = useState<CategoryEntity[]>([]);
   const [products, setProducts] = useState<ProductEntity[]>([]);
+  const [cart, setCart] = useState<CartEntityProperty[]>([]);
 
   const loadCategories = (allCategories: CategoryEntity[]) => {
     setCategories(allCategories);
@@ -37,6 +38,14 @@ export const App = () => {
 
   const addProducts = (product: ProductEntity) => {
     setProducts((prev) => [...prev, product]);
+  };
+
+  const addCart = (item:CartEntityProperty) => {
+    setCart((prev) => [...prev, item]);
+  };
+
+  const loadCart = (allItems:CartEntityProperty[]) => {
+    setCart(allItems);
   };
 
   useEffect(() => {
@@ -57,6 +66,13 @@ export const App = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const cartItems:CartEntityProperty[] = (localStorage.getItem('shopCart')) ? JSON.parse(localStorage.getItem('shopCart') as string) : [];
+      loadCart(cartItems);
+    })();
+  }, []);
+
   if (products.length === 0 || categories.length === 0) {
     return <LoadingSpinner />;
   }
@@ -67,10 +83,13 @@ export const App = () => {
       <ShopContext.Provider value={{
         categories,
         products,
+        cart,
         addCategories,
         addProducts,
         loadCategories,
         loadProducts,
+        addCart,
+        loadCart,
       }}
       >
         <Header />
@@ -81,7 +100,7 @@ export const App = () => {
           <Route path="/category/" element={<CategoryView />} />
           <Route path="/category/form" element={<AddCategoryForm />} />
           <Route path="/ranking" element={<RankingView />} />
-          <Route path="/basket" element={<BasketView />} />
+          <Route path="/cart" element={<CartView />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route

@@ -20,7 +20,7 @@ export const NavigationBar = () => (
       </BreadcrumbLink>
     </BreadcrumbItem>
     <BreadcrumbItem>
-      <BreadcrumbLink as={Link} to="/basket">
+      <BreadcrumbLink as={Link} to="/cart">
         Basket
       </BreadcrumbLink>
     </BreadcrumbItem>

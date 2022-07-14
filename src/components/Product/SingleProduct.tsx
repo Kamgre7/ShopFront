@@ -87,8 +87,7 @@ export const SingleProduct = ({ product }: Props) => {
             </Heading>
             <Stack direction="row" align="center">
               <Text fontWeight={800} fontSize="xl">
-                $
-                {price}
+                {`$${price}`}
               </Text>
             </Stack>
           </Stack>

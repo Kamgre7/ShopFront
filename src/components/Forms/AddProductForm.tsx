@@ -9,7 +9,7 @@ import {
   Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
-  NumberInput, NumberInputField, NumberInputStepper, Select, Textarea,
+  NumberInput, NumberInputField, NumberInputStepper, Select, Textarea, useToast,
   VStack,
 } from '@chakra-ui/react';
 import { ProductEntity } from 'types';
@@ -20,7 +20,7 @@ export const AddProductForm = () => {
   const [priceValue, setPriceValue] = useState<string>('0');
   const [quantityValue, setQuantityValue] = useState<string>('0');
   const context = useContext(ShopContext);
-
+  const toast = useToast();
   if (!context) {
     return null;
   }
@@ -59,6 +59,12 @@ export const AddProductForm = () => {
 
         const data: ProductEntity = await res.json();
         addProducts(data);
+        toast({
+          title: `Congratulations! Product ${values.name} was created successfully!`,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
       } catch (err) {
         console.error(err);
       }
@@ -70,7 +76,7 @@ export const AddProductForm = () => {
   }
 
   return (
-    <Flex bg="gray.100" align="center" justify="center" h="92vh">
+    <Flex bg="gray.100" align="center" justify="center" pt="5px" minH="95vh">
       <Box bg="white" p={6} rounded="md">
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <VStack spacing={4} align="flex-start">

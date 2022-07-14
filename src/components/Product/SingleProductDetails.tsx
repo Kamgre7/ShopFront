@@ -1,7 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
-  Box, Button, Container, Flex, Heading, Image, SimpleGrid, Stack, StackDivider, Text, useColorModeValue, VStack,
+  Box,
+  Button,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  SimpleGrid,
+  Stack,
+  StackDivider,
+  Text,
+  useColorModeValue, useToast,
+  VStack,
 } from '@chakra-ui/react';
 import { MdLocalShipping } from 'react-icons/all';
 import { ProductEntity, CartEntityProperty } from 'types';
@@ -19,6 +30,7 @@ export const SingleProductDetails = () => {
   }
 
   const { cart, loadCart } = context;
+  const toast = useToast();
 
   useEffect(() => {
     (async () => {
@@ -61,6 +73,12 @@ export const SingleProductDetails = () => {
 
     localStorage.setItem('shopCart', JSON.stringify(cartItems));
     loadCart(cartItems);
+    toast({
+      title: `${name} added to basket`,
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   return (
@@ -95,28 +113,21 @@ export const SingleProductDetails = () => {
               fontWeight={300}
               fontSize="2xl"
             >
-              $
-              {price}
-              {' '}
-              USD
+              {`$${price} USD`}
             </Text>
             <Text
               color={useColorModeValue('gray.900', 'gray.400')}
               fontWeight={300}
               fontSize="xl"
             >
-              In stock:
-              {' '}
-              {quantity}
+              {`In stock: ${quantity}`}
             </Text>
             <Text
               color={useColorModeValue('gray.900', 'gray.400')}
               fontWeight={300}
               fontSize="l"
             >
-              SKU:
-              {' '}
-              {sku}
+              {`SKU: ${sku}`}
             </Text>
           </Box>
 
@@ -168,25 +179,4 @@ export const SingleProductDetails = () => {
       </SimpleGrid>
     </Container>
   );
-  /*
-     <div>
-      <div>
-        {id}
-        <br />
-        {name}
-        <br />
-        {imgLink}
-        <br />
-        {price}
-        <br />
-        {quantity}
-        <br />
-        {sku}
-        <br />
-        {description}
-      </div>
-      {/* eslint-disable-next-line jsx-a11y/control-has-associated-label,react/button-has-type */ };
-/*
-<button onClick={addToCart}>Add</button>
-</div>
-*/
+};

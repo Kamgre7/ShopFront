@@ -7,14 +7,14 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Textarea,
+  Textarea, useToast,
   VStack,
 } from '@chakra-ui/react';
 import { ShopContext } from '../../contexts/shop.context';
 
 export const AddCategoryForm = () => {
   const context = useContext(ShopContext);
-
+  const toast = useToast();
   if (!context) {
     return null;
   }
@@ -46,6 +46,12 @@ export const AddCategoryForm = () => {
 
         const data = await res.json();
         addCategories(data);
+        toast({
+          title: `Congratulations! Category ${values.name} was created successfully!`,
+          status: 'success',
+          duration: 3000,
+          isClosable: true,
+        });
       } catch (err) {
         console.error(err);
       }

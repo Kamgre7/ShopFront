@@ -9,6 +9,7 @@ interface ShopContextType {
   loadCategories: (allCategories: CategoryEntity[]) => void;
   addProducts: (newProducts: ProductEntity) => void;
   loadProducts: (allProducts: ProductEntity[]) => void;
+  removeProduct: (productId: string) =>void;
   addCart: (newItem: CartEntityProperty)=> void;
   loadCart:(allItems: CartEntityProperty[])=>void;
   removeCart:(itemId: string) => void;

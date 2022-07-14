@@ -24,7 +24,7 @@ export const SingleCartProduct = ({
     return null;
   }
 
-  const { removeCart /* loadCart */ } = context;
+  const { removeCart } = context;
 
   const toast = useToast();
   const imgLink = `http://localhost:3001/${img}`;

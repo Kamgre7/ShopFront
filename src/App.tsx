@@ -18,6 +18,7 @@ import { LoginForm } from './components/Forms/LoginForm';
 import { ShopContext } from './contexts/shop.context';
 import { SingleProductDetails } from './components/Product/SingleProductDetails';
 import { LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
+import { RemovingListView } from './views/RemovingListView';
 
 export const App = () => {
   const [categories, setCategories] = useState<CategoryEntity[]>([]);
@@ -38,6 +39,10 @@ export const App = () => {
 
   const addProducts = (product: ProductEntity) => {
     setProducts((prev) => [...prev, product]);
+  };
+
+  const removeProduct = (id: string) => {
+    setProducts((prev) => prev.filter((product) => product.id !== id));
   };
 
   const addCart = (item:CartEntityProperty) => {
@@ -94,6 +99,7 @@ export const App = () => {
         addProducts,
         loadCategories,
         loadProducts,
+        removeProduct,
         addCart,
         loadCart,
         removeCart,
@@ -108,6 +114,7 @@ export const App = () => {
           <Route path="/category/form" element={<AddCategoryForm />} />
           <Route path="/ranking" element={<RankingView />} />
           <Route path="/cart" element={<CartView />} />
+          <Route path="/removing-list" element={<RemovingListView />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route

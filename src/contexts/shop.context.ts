@@ -11,6 +11,7 @@ interface ShopContextType {
   loadProducts: (allProducts: ProductEntity[]) => void;
   addCart: (newItem: CartEntityProperty)=> void;
   loadCart:(allItems: CartEntityProperty[])=>void;
+  removeCart:(itemId: string) => void;
 }
 
 export const ShopContext = createContext < ShopContextType | null >(null);

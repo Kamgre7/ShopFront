@@ -36,7 +36,7 @@ export const CartView = () => {
         console.error(err);
       }
     })();
-  }, []);
+  }, [cart]);
 
   if (!load) {
     return <LoadingSpinner />;

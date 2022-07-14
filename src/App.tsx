@@ -48,6 +48,12 @@ export const App = () => {
     setCart(allItems);
   };
 
+  const removeCart = (id: string) => {
+    const filteredCart = cart.filter((product) => product.productId !== id);
+    localStorage.setItem('shopCart', JSON.stringify(filteredCart));
+    loadCart(filteredCart);
+  };
+
   useEffect(() => {
     (async () => {
       const res = await fetch('http://localhost:3001/product');
@@ -90,6 +96,7 @@ export const App = () => {
         loadProducts,
         addCart,
         loadCart,
+        removeCart,
       }}
       >
         <Header />

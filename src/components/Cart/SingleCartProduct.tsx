@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-  Button, Heading, Image, Stack, Text,
+  Button, Heading, Image, Stack, Text, useToast,
 } from '@chakra-ui/react';
+import { ShopContext } from '../../contexts/shop.context';
 
 interface Props {
-  /* id: string; */
+  id: string;
   itemName: string;
   img: string;
   price: number;
@@ -15,9 +16,29 @@ interface Props {
 }
 
 export const SingleCartProduct = ({
-  /* id, */itemName, img, price, /* quantity, */ userQuantity,
+  id, itemName, img, price, /* quantity, */ userQuantity,
 }: Props) => {
+  const context = useContext(ShopContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { removeCart /* loadCart */ } = context;
+
+  const toast = useToast();
   const imgLink = `http://localhost:3001/${img}`;
+
+  const removeItemFromBasket = (e:React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    removeCart(id);
+    toast({
+      title: `Item ${itemName} deleted from basket`,
+      status: 'info',
+      duration: 2000,
+      isClosable: true,
+    });
+  };
 
   return (
     <Stack
@@ -49,6 +70,7 @@ export const SingleCartProduct = ({
       <Stack>
         <Button
           size="md"
+          onClick={removeItemFromBasket}
         >
           Delete
         </Button>

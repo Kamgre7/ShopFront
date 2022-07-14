@@ -52,7 +52,7 @@ export const CartList = (props:Props) => {
         {
           basketItems.map(({
             name, img, price, id, userQuantity,
-          }) => <SingleCartProduct key={id} itemName={name} img={img} price={price} userQuantity={userQuantity} />)
+          }) => <SingleCartProduct key={id} itemName={name} id={id} img={img} price={price} userQuantity={userQuantity} />)
         }
         <Divider />
       </Stack>

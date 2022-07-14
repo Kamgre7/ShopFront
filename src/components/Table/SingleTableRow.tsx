@@ -48,7 +48,7 @@ export const SingleTableRow = (props: Props) => {
       console.error(err);
     }
   };
-  console.log('asdsa');
+
   return (
     <Tr>
       <Td _hover={{

@@ -80,7 +80,7 @@ export const AddProductForm = () => {
       <Box bg="white" p={6} rounded="md">
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <VStack spacing={4} align="flex-start">
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input
                 id="name"
@@ -94,7 +94,7 @@ export const AddProductForm = () => {
                 borderColor="gray.100"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="description">Description</FormLabel>
               <Textarea
                 id="description"
@@ -107,7 +107,7 @@ export const AddProductForm = () => {
                 borderColor="gray.100"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="quantity">Quantity</FormLabel>
               <NumberInput
                 max={10000}
@@ -127,7 +127,7 @@ export const AddProductForm = () => {
                 </NumberInputStepper>
               </NumberInput>
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="price">Price</FormLabel>
               <NumberInput
                 max={1000000}
@@ -148,7 +148,7 @@ export const AddProductForm = () => {
                 </NumberInputStepper>
               </NumberInput>
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="sku">SKU</FormLabel>
               <Input
                 id="sku"
@@ -162,7 +162,7 @@ export const AddProductForm = () => {
                 borderColor="gray.100"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="categoryId">Category</FormLabel>
               <Select
                 id="categoryId"
@@ -176,7 +176,7 @@ export const AddProductForm = () => {
                 }
               </Select>
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="img">Image</FormLabel>
               <Input
                 id="img"

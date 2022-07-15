@@ -63,7 +63,7 @@ export const AddCategoryForm = () => {
       <Box bg="white" p={6} rounded="md">
         <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
           <VStack spacing={4} align="flex-start">
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="name">Name</FormLabel>
               <Input
                 id="name"
@@ -77,7 +77,7 @@ export const AddCategoryForm = () => {
                 borderColor="gray.100"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="description">Description</FormLabel>
               <Textarea
                 id="description"
@@ -87,7 +87,7 @@ export const AddCategoryForm = () => {
                 size="sm"
               />
             </FormControl>
-            <FormControl>
+            <FormControl isRequired>
               <FormLabel htmlFor="img">Image</FormLabel>
               <Input
                 id="img"

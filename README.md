@@ -1,6 +1,6 @@
-## Megak_shop - frontend
+## Megak_shop - frontend 
 
-#### Megak_shop is a shop application created using React + chakra ui + typescirpt. Code was formetted using eslint with airbnb-typescript configuration.
+#### Megak_shop is a shop application created using React + chakra ui + typescirpt. Code was formetted using eslint with airbnb-typescript configuration. 
 
 ### Features:
 
@@ -24,7 +24,7 @@
 
 
 
-#### - single product view - when user click some product, he will see details of prodct like: name, description, quantity, price, sku code, which category, image and button "add to cart" which will add item to your basket.
+#### - single product view - when user click some product, he will see details of prodct like: name, description, quantity, price, sku code, which category, image and button "add to cart" which will add item to your basket. 
 
 
 
@@ -94,7 +94,7 @@
 
 
 
-#### Deleting item:
+#### Deleting item: 
 
 
 
@@ -140,4 +140,3 @@
 - ranking views - ranking of the most selling products
 - upgrade validation
 - refactor of components (less code in one component)
-
